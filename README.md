@@ -2,6 +2,8 @@
 
 This script will add a custom heading using FFMPEG at the start of your videos with the objective of changing the default thumbnail.
 
+Why waste 1 hour doing something when in 3 hours you can make a script that does that automatically? 
+
 ## Usage
 
 1) Install the packages listed on the `packages.txt` file on your python environment.
