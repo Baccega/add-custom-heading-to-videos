@@ -10,7 +10,7 @@ def main():
     dict = {}
     for video in videos_list:
         dict[video] = "VIDEO_TITLE_HERE" 
-    print("HEADINGS_LIST = {}".format(dict))
+    print("CUSTOM_HEADINGS_LIST = {}".format(dict))
 
 if __name__ == "__main__":
     main()
