@@ -3,10 +3,12 @@
 
 input/*.mp4
 input/*.mov
+input/*.mkv
 input/*.avi
 
 output/*.mp4
 output/*.mov
+output/*.mkv
 output/*.avi
 
 font.ttf
