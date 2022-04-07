@@ -7,6 +7,9 @@ OUTPUT_FOLDER_NAME = "output"
 # The heading will show from 0 to HEADING_TIME seconds
 HEADING_TIME = 10
 
+HEADING_FILE_NAME = "heading.mp4"
+REST_FILE_NAME = "rest.mp4"
+
 # Get this from runnning `python3 get_filenames_from_input.py`
 CUSTOM_HEADINGS_LIST = {}
  
@@ -54,28 +57,28 @@ def main():
             -ss 0 \
             -t {} \
             -c:a copy \
-            heading.mp4""".format(
-            input_video, font_file, heading, HEADING_TIME
+            {}""".format(
+            input_video, font_file, heading, HEADING_TIME, HEADING_FILE_NAME
         )
 
         ffmpeg_copy_video_command = """ffmpeg -y \
             -ss {} \
             -i "{}" \
             -c:v copy -c:a copy \
-            rest.mp4""".format(
-            HEADING_TIME, input_video
+            {}""".format(
+            HEADING_TIME, input_video, REST_FILE_NAME
         )
 
-        ffmpeg_concat_command = 'ffmpeg -y -i heading.mp4 -i rest.mp4 -vcodec h264 -filter_complex "[0:v] [0:a] [1:v] [1:a] concat=n=2:v=1:a=1 [vv] [aa]" -map "[vv]" -map "[aa]" "{}"'.format(
-            output_video
+        ffmpeg_concat_command = 'ffmpeg -y -i {} -i {} -vcodec h264 -filter_complex "[0:v] [0:a] [1:v] [1:a] concat=n=2:v=1:a=1 [vv] [aa]" -map "[vv]" -map "[aa]" "{}"'.format(
+            HEADING_FILE_NAME, REST_FILE_NAME, output_video
         )
 
         os.system(ffmpeg_create_heading_command)
         os.system(ffmpeg_copy_video_command)
         os.system(ffmpeg_concat_command)
 
-    os.remove("heading.mp4")
-    os.remove("rest.mp4")
+    os.remove(HEADING_FILE_NAME)
+    os.remove(REST_FILE_NAME)
 
 
 if __name__ == "__main__":
