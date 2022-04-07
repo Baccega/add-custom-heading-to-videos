@@ -36,7 +36,7 @@ def main():
     for video_file_name, heading in video_dict.items():
         input_video = "{}/{}".format(INPUT_FOLDER_NAME, video_file_name)
         font_file = "font.ttf"
-        output_video = "{}/Edited-{}.mkv".format(
+        output_video = "{}/Edited-{}.mp4".format(
             OUTPUT_FOLDER_NAME, os.path.splitext(video_file_name)[0]
         )
 
@@ -54,7 +54,7 @@ def main():
             -ss 0 \
             -t {} \
             -c:a copy \
-            heading.mkv""".format(
+            heading.mp4""".format(
             input_video, font_file, heading, HEADING_TIME
         )
 
@@ -62,11 +62,11 @@ def main():
             -ss {} \
             -i "{}" \
             -c:v copy -c:a copy \
-            rest.mkv""".format(
+            rest.mp4""".format(
             HEADING_TIME, input_video
         )
 
-        ffmpeg_concat_command = 'ffmpeg -y -i heading.mkv -i rest.mkv -filter_complex "[0:v] [0:a] [1:v] [1:a] concat=n=2:v=1:a=1 [vv] [aa]" -map "[vv]" -map "[aa]" "{}"'.format(
+        ffmpeg_concat_command = 'ffmpeg -y -i heading.mp4 -i rest.mp4 -vcodec h264 -filter_complex "[0:v] [0:a] [1:v] [1:a] concat=n=2:v=1:a=1 [vv] [aa]" -map "[vv]" -map "[aa]" "{}"'.format(
             output_video
         )
 
@@ -74,8 +74,8 @@ def main():
         os.system(ffmpeg_copy_video_command)
         os.system(ffmpeg_concat_command)
 
-    os.remove("heading.mkv")
-    os.remove("rest.mkv")
+    os.remove("heading.mp4")
+    os.remove("rest.mp4")
 
 
 if __name__ == "__main__":
