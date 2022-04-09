@@ -7,8 +7,9 @@ OUTPUT_FOLDER_NAME = "output"
 # The heading will show from 0 to HEADING_TIME seconds
 HEADING_TIME = 10
 
-HEADING_FILE_NAME = "heading.mp4"
-REST_FILE_NAME = "rest.mp4"
+FILE_FORMAT = "mp4"
+HEADING_FILE_NAME = "heading.{}".format(FILE_FORMAT)
+REST_FILE_NAME = "rest.{}".format(FILE_FORMAT)
 
 # Get this from runnning `python3 get_filenames_from_input.py`
 CUSTOM_HEADINGS_LIST = {}
@@ -39,8 +40,8 @@ def main():
     for video_file_name, heading in video_dict.items():
         input_video = "{}/{}".format(INPUT_FOLDER_NAME, video_file_name)
         font_file = "font.ttf"
-        output_video = "{}/Edited-{}.mp4".format(
-            OUTPUT_FOLDER_NAME, os.path.splitext(video_file_name)[0]
+        output_video = "{}/Edited-{}.{}".format(
+            OUTPUT_FOLDER_NAME, os.path.splitext(video_file_name)[0], FILE_FORMAT
         )
 
         ffmpeg_create_heading_command = """ffmpeg -y \
